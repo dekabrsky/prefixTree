@@ -14,6 +14,7 @@ public class Node {
     public Node(char letter, String data){
         Letter = letter;
         Data = data;
+        subTree = new HashMap<>();
     }
 
     public Node TryFind(char letter){

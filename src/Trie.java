@@ -3,7 +3,7 @@ public class Trie {
     public int Count;
 
     public Trie(){
-        root = new Node('\0', null);
+        root = new Node('\0', "");
         Count = 1;
     }
 
@@ -12,7 +12,7 @@ public class Trie {
     }
 
     private void AddNode(String key, String data, Node node){
-        if (key == null){
+        if (key.isEmpty()){
             if (!node.isLeaf){
                 node.Data = data;
                 node.isLeaf = true;
@@ -26,17 +26,46 @@ public class Trie {
             }
             else{
                 Node newNode = new Node(key.charAt(0), data);
-                subNode.subTree.Add(key.charAt(0), newNode);
-                AddNode(key.substring(1), data, subNode);
+                node.subTree.put(key.charAt(0), newNode);
+                AddNode(key.substring(1), data, newNode);
             }
         }
     }
 
-    public void Remove(String letter){
-
+    public void Remove(String key){
+        RemoveHelper(key, root);
     }
 
-    public String Search(String letter){
-        return "letter";
+    private void RemoveHelper(String key, Node node){
+        if (key.isEmpty()){
+            if (node.isLeaf){
+                node.isLeaf = false;
+            } else {
+                Node subNode = node.TryFind(key.charAt(0));
+                if (subNode != null) {
+                    RemoveHelper(key.substring(1), subNode);
+                }
+            }
+        }
+    }
+
+    public String TrySearch(String key, String value){
+        return SearchHelper(key, root);
+    }
+
+    private String SearchHelper(String key, Node node) {
+        if (key.isEmpty()) {
+            if (node.isLeaf) {
+                return node.Data;
+            } else {
+                return "Ничего не найдено";
+            }
+        } else {
+            Node subNode = node.TryFind(key.charAt(0));
+            if (subNode != null) {
+                SearchHelper(key.substring(1), subNode);
+            }
+        }
+        return "Ошибка";
     }
 }
