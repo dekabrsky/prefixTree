@@ -1,9 +1,10 @@
 public class Trie {
     private Node root;
     public int Count;
+    private String searchResult;
 
     public Trie(){
-        root = new Node('\0', "");
+        root = new Node('\0', "", "");
         Count = 1;
     }
 
@@ -25,9 +26,10 @@ public class Trie {
                 AddNode(key.substring(1), data, subNode);
             }
             else{
-                Node newNode = new Node(key.charAt(0), data);
+                Node newNode = new Node(key.charAt(0), data, node.Prefix + key.charAt(0));
                 node.subTree.put(key.charAt(0), newNode);
                 AddNode(key.substring(1), data, newNode);
+                System.out.println(newNode.toString());
             }
         }
     }
@@ -37,28 +39,28 @@ public class Trie {
     }
 
     private void RemoveHelper(String key, Node node){
-        if (key.isEmpty()){
+        if (key == null || key.isEmpty()){
             if (node.isLeaf){
                 node.isLeaf = false;
-            } else {
-                Node subNode = node.TryFind(key.charAt(0));
-                if (subNode != null) {
-                    RemoveHelper(key.substring(1), subNode);
-                }
+            }
+        } else {
+            Node subNode = node.TryFind(key.charAt(0));
+            if (subNode != null) {
+                RemoveHelper(key.substring(1), subNode);
             }
         }
     }
 
-    public String TrySearch(String key, String value){
-        return SearchHelper(key, root);
+    public String TrySearch(String key){
+        searchResult = "No results";
+        SearchHelper(key, root);
+        return searchResult;
     }
 
-    private String SearchHelper(String key, Node node) {
-        if (key.isEmpty()) {
+    private void SearchHelper(String key, Node node) {
+        if (key == null || key.isEmpty()) {
             if (node.isLeaf) {
-                return node.Data;
-            } else {
-                return "Ничего не найдено";
+                searchResult = key + ": " + node.Data;
             }
         } else {
             Node subNode = node.TryFind(key.charAt(0));
@@ -66,6 +68,5 @@ public class Trie {
                 SearchHelper(key.substring(1), subNode);
             }
         }
-        return "Ошибка";
     }
 }

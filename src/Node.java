@@ -11,10 +11,11 @@ public class Node {
         Data = data;
     }
 
-    public Node(char letter, String data){
+    public Node(char letter, String data, String prefix){
         Letter = letter;
         Data = data;
         subTree = new HashMap<>();
+        Prefix = prefix;
     }
 
     public Node TryFind(char letter){
@@ -23,7 +24,7 @@ public class Node {
 
     @Override
     public String toString(){
-        return Data;
+        return Letter + " " + Data + " " + Prefix;
     }
 
     @Override
