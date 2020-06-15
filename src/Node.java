@@ -24,7 +24,7 @@ public class Node {
 
     @Override
     public String toString(){
-        return Letter + " " + Data + " " + Prefix;
+        return String.format("Letter: %s, Data: %s, Prefix: %s", Letter, Data, Prefix);
     }
 
     @Override
