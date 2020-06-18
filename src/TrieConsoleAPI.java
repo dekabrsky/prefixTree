@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,34 @@ public class TrieConsoleAPI {
     }
 
     public void Remove(String key){
+        trie.Remove(key);
+        System.out.println(String.format("Слово %s удалено", key));
+    }
 
+    public String GetWordByKey(String key){
+        String result = trie.TrySearch(key);
+        if (result == null) {
+            System.out.println(String.format("Слово %s не найдено", key));
+            return "Nothing";
+        } else {
+            System.out.println(String.format("По ключу %s найдено: %s", key, result));
+            return result;
+        }
+    }
+
+    public boolean ContainsKey(String key){
+        return (!(GetWordByKey(key).equals("Nothing")));
+    }
+
+    public String[] GetWordsByPrefix(String key){
+        ArrayList result = trie.SearchByPrefix(key);
+        if (result.isEmpty()){
+            System.out.println(String.format("По запросу %s ничего не найдено", key));
+            return null;
+        } else {
+            System.out.print(String.format("По запросу %s найдено %d записей:", key, result.size()));
+            System.out.println(result);
+            return (String[]) result.toArray();
+        }
     }
 }

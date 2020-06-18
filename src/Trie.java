@@ -54,7 +54,7 @@ public class Trie {
     }
 
     public String TrySearch(String key){
-        searchResult = "No results";
+        searchResult = null;
         SearchHelper(key, root);
         return searchResult;
     }
@@ -62,7 +62,7 @@ public class Trie {
     private void SearchHelper(String key, Node node) {
         if (key == null || key.isEmpty()) {
             if (node.isLeaf) {
-                searchResult = String.format("Результат по запросу: %s", node.Data);
+                searchResult = node.Data;
             }
         } else {
             Node subNode = node.TryFind(key.charAt(0));
@@ -104,9 +104,5 @@ public class Trie {
         } else {
             prefixResult.add(node.Prefix);
         }
-    }
-
-    public Node getRoot(){
-        return root;
     }
 }
