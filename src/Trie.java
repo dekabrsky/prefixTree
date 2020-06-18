@@ -10,6 +10,7 @@ public class Trie {
 
     public void Add (String key, String data){
         AddNode(key, data, root);
+        System.out.println(String.format("Слово %s добавлено со значением: %s", key, data));
     }
 
     private void AddNode(String key, String data, Node node){
@@ -29,13 +30,14 @@ public class Trie {
                 Node newNode = new Node(key.charAt(0), data, node.Prefix + key.charAt(0));
                 node.subTree.put(key.charAt(0), newNode);
                 AddNode(key.substring(1), data, newNode);
-                System.out.println(newNode.toString());
+                //System.out.println(newNode.toString());
             }
         }
     }
 
     public void Remove(String key){
         RemoveHelper(key, root);
+        System.out.println(String.format("Слово %s удалено", key));
     }
 
     private void RemoveHelper(String key, Node node){
@@ -60,7 +62,7 @@ public class Trie {
     private void SearchHelper(String key, Node node) {
         if (key == null || key.isEmpty()) {
             if (node.isLeaf) {
-                searchResult = key + ": " + node.Data;
+                searchResult = String.format("Результат по запросу: %s", node.Data);
             }
         } else {
             Node subNode = node.TryFind(key.charAt(0));

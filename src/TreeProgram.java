@@ -2,22 +2,26 @@ import java.util.Scanner;
 
 public class TreeProgram {
     public static void main(String[] args) {
+        Trie trie = GetTrie();
+        trie.TrySearch("акация");
+        trie.TrySearch("фрукт");
+        String testWord = "Коронавирус";
+        trie.Add(testWord, "нехорошее явление");
+        System.out.println(trie.TrySearch(testWord));
+        trie.Remove(testWord);
+        System.out.println(trie.TrySearch(testWord));
+    }
+
+    public static Trie GetTrie(){
+        String[] words = {"акация", "аккаунт", "академия", "аккордеон", "аккаунт", "аккорд", "акиба", "акинфеев",
+                          "акция", "акклиматизация", "акула", "аккумулятор", "фразеологизм", "франция", "француз",
+                          "фракция", "фрагмент", "фрезеровщик", "фрактал", "фрисби", "фриланс"};
         Trie trie = new Trie();
-        Scanner in = new Scanner(System.in);
-        while (true){
-            String method = in.next();
-            String message = in.next();
-            switch (method){
-                case ("add"):
-                    String value = in.next();
-                    trie.Add(message, value);
-                case ("remove"):
-                    trie.Remove(message);
-                case ("search"):
-                    System.out.println(trie.TrySearch(message));
-                case ("exit"):
-                    break;
-            }
+        for (String word:
+             words) {
+            trie.Add(word, " - нет определения");
         }
+
+        return trie;
     }
 }
