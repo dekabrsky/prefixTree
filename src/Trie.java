@@ -1,16 +1,17 @@
+import java.util.ArrayList;
+
 public class Trie {
     private Node root;
-    public int Count;
     private String searchResult;
+    private ArrayList<String> prefixResult;
+    private Node prefixNode;
 
     public Trie(){
         root = new Node('\0', "", "");
-        Count = 1;
     }
 
     public void Add (String key, String data){
         AddNode(key, data, root);
-        System.out.println(String.format("Слово %s добавлено со значением: %s", key, data));
     }
 
     private void AddNode(String key, String data, Node node){
@@ -37,7 +38,6 @@ public class Trie {
 
     public void Remove(String key){
         RemoveHelper(key, root);
-        System.out.println(String.format("Слово %s удалено", key));
     }
 
     private void RemoveHelper(String key, Node node){
@@ -70,5 +70,43 @@ public class Trie {
                 SearchHelper(key.substring(1), subNode);
             }
         }
+    }
+
+    public ArrayList<String> SearchByPrefix(String prefix){
+        prefixResult = new ArrayList<>();
+        prefixNode = root;
+        FindPrefixNode(prefix, root, prefix);
+        if (!prefixNode.equals(root)) {
+            GetSubNodes(prefixNode);
+        }
+        return prefixResult;
+    }
+
+    private void FindPrefixNode(String key, Node node, String prefix) {
+        if (node.Prefix.equals(prefix)) {
+            prefixNode = node;
+        } else {
+            Node subNode = node.TryFind(key.charAt(0));
+            if (subNode != null) {
+                FindPrefixNode(key.substring(1), subNode, prefix);
+            }
+        }
+    }
+
+    private void GetSubNodes(Node node){
+        if (!node.subTree.isEmpty()){
+            if (node.isLeaf)
+                prefixResult.add(node.Prefix);
+            for (Node subNode:
+                 node.subTree.values()) {
+                GetSubNodes(subNode);
+            }
+        } else {
+            prefixResult.add(node.Prefix);
+        }
+    }
+
+    public Node getRoot(){
+        return root;
     }
 }

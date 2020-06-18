@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class TreeProgram {
     public static void main(String[] args) {
         Trie trie = GetTrie();
@@ -10,6 +8,8 @@ public class TreeProgram {
         System.out.println(trie.TrySearch(testWord));
         trie.Remove(testWord);
         System.out.println(trie.TrySearch(testWord));
+        System.out.println(trie.TrySearch("акация"));
+        System.out.println(trie.SearchByPrefix("ак"));
     }
 
     public static Trie GetTrie(){

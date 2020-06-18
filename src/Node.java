@@ -24,7 +24,7 @@ public class Node {
 
     @Override
     public String toString(){
-        return String.format("Letter: %s, Data: %s, Prefix: %s", Letter, Data, Prefix);
+        return String.format("Letter: %s, Prefix: %s", Letter, Prefix);
     }
 
     @Override
@@ -32,6 +32,6 @@ public class Node {
         if (obj == null || obj.getClass() != this.getClass())
             return false;
         Node nodeObj = (Node) obj;
-        return nodeObj.Data == this.Data;
+        return nodeObj.Data.equals(this.Data);
     }
 }
