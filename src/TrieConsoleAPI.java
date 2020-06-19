@@ -43,7 +43,7 @@ public class TrieConsoleAPI {
         return (!(GetWordByKey(key).equals("Nothing")));
     }
 
-    public String[] GetWordsByPrefix(String key){
+    public ArrayList<String> GetWordsByPrefix(String key){
         ArrayList result = trie.SearchByPrefix(key);
         if (result.isEmpty()){
             System.out.println(String.format("По запросу %s ничего не найдено", key));
@@ -51,7 +51,7 @@ public class TrieConsoleAPI {
         } else {
             System.out.print(String.format("По запросу %s найдено %d записей:", key, result.size()));
             System.out.println(result);
-            return (String[]) result.toArray();
+            return result;
         }
     }
 }
