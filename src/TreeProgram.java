@@ -3,7 +3,7 @@ public class TreeProgram {
         Trie trie = GetTrie();
         trie.TrySearch("акация");
         trie.TrySearch("фрукт");
-        String testWord = "Коронавирус";
+        String testWord = "Ураган";
         trie.Add(testWord, "нехорошее явление");
         System.out.println(trie.TrySearch(testWord));
         trie.Remove(testWord);
