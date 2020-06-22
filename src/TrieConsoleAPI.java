@@ -54,4 +54,9 @@ public class TrieConsoleAPI {
             return result;
         }
     }
+
+    public void Clear(){
+        trie = new Trie();
+        System.out.println("Префиксное дерево сброшено");
+    }
 }
