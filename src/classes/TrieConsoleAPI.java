@@ -1,3 +1,7 @@
+package classes;
+
+import classes.Trie;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +48,7 @@ public class TrieConsoleAPI {
     }
 
     public ArrayList<String> GetWordsByPrefix(String key){
-        ArrayList result = trie.SearchByPrefix(key);
+        ArrayList<String> result = trie.SearchByPrefix(key);
         if (result.isEmpty()){
             System.out.println(String.format("По запросу %s ничего не найдено", key));
             return null;
@@ -58,5 +62,11 @@ public class TrieConsoleAPI {
     public void Clear(){
         trie = new Trie();
         System.out.println("Префиксное дерево сброшено");
+    }
+
+    public HashMap<String, String> All(){
+        HashMap<String, String>  result = trie.toHashMap();
+        System.out.println(result);
+        return result;
     }
 }

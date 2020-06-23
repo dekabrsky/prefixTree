@@ -1,3 +1,7 @@
+package programs;
+
+import classes.Trie;
+
 public class TreeProgram {
     public static void main(String[] args) {
         Trie trie = GetTrie();

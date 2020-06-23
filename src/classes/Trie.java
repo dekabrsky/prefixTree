@@ -1,10 +1,13 @@
+package classes;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Trie {
-    private Node root;
+    private final Node root;
     private String searchResult;
     private ArrayList<String> prefixResult;
     private Node prefixNode;
+    private HashMap<String, String> dict;
 
     public Trie(){
         root = new Node('\0', "", "");
@@ -28,7 +31,7 @@ public class Trie {
                 AddNode(key.substring(1), data, subNode);
             }
             else{
-                Node newNode = new Node(key.charAt(0), data, node.Prefix + key.charAt(0));
+                Node newNode = new Node(letter, data, node.Prefix + letter);
                 node.subTree.put(key.charAt(0), newNode);
                 AddNode(key.substring(1), data, newNode);
                 //System.out.println(newNode.toString());
@@ -102,7 +105,29 @@ public class Trie {
                 GetSubNodes(subNode);
             }
         } else {
-            prefixResult.add(node.Prefix);
+            if (node.isLeaf)
+                prefixResult.add(node.Prefix);
+
         }
+    }
+
+    public HashMap<String, String> toHashMap(){
+        dict = new HashMap<String, String>();
+        GetAll(root);
+        return dict;
+    }
+
+    private void GetAll(Node node){
+        if (!node.subTree.isEmpty()){
+            if (node.isLeaf)
+                dict.put(node.Prefix, node.Data);
+            for (Node subNode:
+                    node.subTree.values()){
+                GetAll(subNode);
+            }
+
+        } else
+            if (node.isLeaf)
+                dict.put(node.Prefix, node.Data);
     }
 }
